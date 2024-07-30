@@ -1,3 +1,5 @@
+import org.w3c.dom.Node;
+
 public class DoublyLinkedList {
     Node head;
     Node tail;
@@ -9,12 +11,12 @@ public class DoublyLinkedList {
         //END FIX HERE
     }
     
-    public void PopTail() {
+    public void PopTail() { // เอาตัวท้ายสุดออก
         //START FIX HERE
         if (IsEmpty()){
             System.out.println("ERROR");
         }else {
-            if(tail == head){
+            if(tail == head){ //ถ้ามีตัวเดียว
                 head = null;
                 tail = null;
             }else{
@@ -26,7 +28,7 @@ public class DoublyLinkedList {
         //END FIX HERE
     }
     
-    public void PopHead(){
+    public void PopHead(){  //เอาตัวหน้าสุดออก
         //START FIX HERE
         if (IsEmpty()) {
             System.out.println("ERROR");
@@ -37,7 +39,7 @@ public class DoublyLinkedList {
         //END FIX HERE
     }
     
-    public Node GetHead(){
+    public Node GetHead(){ //เอาค่าตัวหน้าสุด
         //START FIX HERE
         if (IsEmpty()) {
             System.out.println("ERROR");
@@ -49,7 +51,7 @@ public class DoublyLinkedList {
         //END FIX HERE
     }
     
-    public Node GetTail(){
+    public Node GetTail(){ //เอาค่าตัวหลังสุด
         //START FIX HERE
         if (IsEmpty()) {
             System.out.println("ERROR");
@@ -61,7 +63,7 @@ public class DoublyLinkedList {
         //END FIX HERE
     }
     
-    public void PushHead(Node node){
+    public void PushHead(Node node){ //เอาค่าเข้าด้านหน้าสุด
         //START FIX HERE
         if (IsEmpty()) {
             head = node;
@@ -75,7 +77,7 @@ public class DoublyLinkedList {
         //END FIX HERE
     }
     
-    public void PushTail(Node node) {
+    public void PushTail(Node node) { //เอาค่าเข้าด้านหลังสุด
         //START FIX HERE
         if (IsEmpty()) {
             head = node;
@@ -89,15 +91,15 @@ public class DoublyLinkedList {
         //END FIX HERE
     }
 
-    public Node FindNode(int id){
+    public Node FindNode(int id){ //หาตัวที่ต้องการโดยเช็ค id
         //START FIX HERE
         if (IsEmpty()) {
             return new Node("Empty List!");
         }
         else {
             Node current = head;
-            while(current != null){
-                if(current.heroId == id){
+            while(current != null){ // loop หาตัวที่ต้องการ
+                if(current.heroId == id){ // check ตัวปัจจุบันว่ามี id ตามที่ต้องการมั้ย
                     return current;
                 }
                 current = current.next;
@@ -114,15 +116,15 @@ public class DoublyLinkedList {
             return new Node("Empty List!");
         }
         Node current = head;
-        while(current != null){
-            if(current.heroId == id){
-                if(current == head){
+        while(current != null){ // loop หาตัวที่ต้องการ
+            if(current.heroId == id){ // check ตัวปัจจุบันว่ามี id ตามที่ต้องการมั้ย
+                if(current == head){ //ตัวที่ต้องการอยุ่หน้าสุด ให้ head ชี้ตัวถัดไป
                     head = current.next;
                     current.next.previous = null;
-                }else if(current == tail){
+                }else if(current == tail){ //ตัวที่ต้องการอยุ่หลังสุด ให้ tail ชี้ตัวก่อนหน้า
                     tail = current.previous;
                     current.previous.next = null;
-                }else{
+                }else{ // ถ้าอยุ่ระหว่าง head tail
                     current.previous.next = current.next;
                     current.next.previous = current.previous;
                 }
@@ -135,9 +137,9 @@ public class DoublyLinkedList {
         //END FIX HERE
     }
     
-    public void AddNodeAfter(Node node1, Node node2){
+    public void AddNodeAfter(Node node1, Node node2){  // add node2 หลัง node1
         //START FIX HERE
-        if(node1.next != null){
+        if(node1.next != null){ //check ว่าอยุ่หลังสุดป่าว
             node1.next.previous = node2;
         }else {
             tail = node2;
@@ -148,9 +150,9 @@ public class DoublyLinkedList {
         //END FIX HERE
     }
     
-    public void AddNodeBefore(Node node1, Node node2){
+    public void AddNodeBefore(Node node1, Node node2){ // add node2 ก่อน node1
         //START FIX HERE
-        if(node1.previous != null){
+        if(node1.previous != null){ //check ว่าอยุ่หน้าสุดป่าว
             node1.previous.next = node2;
         }else {
             head = node2;
@@ -161,19 +163,19 @@ public class DoublyLinkedList {
         //END FIX HERE
     }
     
-    public boolean IsEmpty(){
+    public boolean IsEmpty(){ // check ว่าว่างมั้ย
         //START FIX HERE
         if(head == null){
             return true;
         }else return false;
         //END FIX HERE
     }
-    public void Merge(DoublyLinkedList list){
+    public void Merge(DoublyLinkedList list){ //รวม list
         //START FIX HERE
         if (list.IsEmpty()) return;
-        tail.next = list.head;
-        list.head.previous = tail;
-        tail = list.tail;
+        tail.next = list.head; // เอาหางของตัวแรก ชี้ หัวของlist
+        list.head.previous = tail; // เอา previous ของหัวlist2 ชี้ ไปที่หาง
+        tail = list.tail; // ท้ายของlist ที่เอามาต่อ กลายเป็นหาง
 
         //END FIX HERE
     }
@@ -182,8 +184,8 @@ public class DoublyLinkedList {
         //START FIX HERE
         System.out.print(listName + ": head <-> ");
         Node current = head;
-        while( current != null){
-            System.out.print("{" + current.heroId + "} <-> ");
+        while( current != null){ // print heroid ทุกตัวจาก head2tail
+            System.out.print("{" + current.heroId + "} <-> "); 
             current = current.next;
         }
         
@@ -195,7 +197,7 @@ public class DoublyLinkedList {
     public void PrintStructureTailward(){ 
         Node current=tail;
         System.out.print(listName + ": tail <-> ");
-        while(current!=null){
+        while(current!=null){ // print heroid ทุกตัวจาก tail2head
             System.out.print("{" + current.heroId + "} <-> ");
             current = current.previous;
         }
@@ -208,9 +210,9 @@ public class DoublyLinkedList {
             return new Node("Empty List!");
         }
         else {
-            Node current = head;
+            Node current = head; 
             Node highest = head;
-            while(current != null){
+            while(current != null){ // หาค่าสูงสุด loop ไปเรื่อยๆ
                 if(current.hp > highest.hp){
                    highest = current; 
                 }
@@ -224,16 +226,20 @@ public class DoublyLinkedList {
         //START FIX HERE
         Node current = head;
         int count = 0;
-        while(current != null){
+        while(current != null){ // หาจำนวนทั้งหมด ใน list
             count++;
             current = current.next;
         }
         count = count/2;
         current = head;
-        for(int i=0 ; i<count ; i++){
-            current = current.next;
+        for(int i=0 ; i<count ; i++){ //หาค่ากลาง
+                current = current.next; 
         }
-        return current.hp;
+        if(count%2 == 0){ // ถ้าในลิสเป็นเลขคู่ 
+            return (current.hp+current.hp)/2; //หาค่าเฉลี่ยนตรงกลาง
+        }else {
+            return current.hp; // คืนค่ากลาง
+        }
         //END FIX HERE
     }
     public void PrintHeroWithType(Attribute att){
@@ -260,8 +266,8 @@ public class DoublyLinkedList {
         
         current = head;
         int count = n;
-        while(current != null){
-            if(current.att == att){
+        while(current != null){ //loop print hero แค่ละตัว
+            if(current.att == att){ //เช้คว่า attของ hero ปัจจุบัน ตรงกับ  att ที่ต้องการม้ย
                 System.out.printf(count + ". HeroID: " + current.heroId +
                                           " , Name: " + current.name + 
                                           " , HP: " + current.hp +
